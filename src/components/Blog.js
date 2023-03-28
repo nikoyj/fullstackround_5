@@ -19,7 +19,7 @@ const Blog = (props) => {
       ...blogObject,
       likes: blogObject.likes + 1
     })
-    props.updateBlog(updatedBlog)
+    props.updateBlog(updatedBlog, blog.id)
     setBlogObject(updatedBlog)
   }
 

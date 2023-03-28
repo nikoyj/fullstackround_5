@@ -63,13 +63,13 @@ const App = () => {
       setError(false)
     }, 5000)
   }
-  const updateBlog = async (blogObject) => {
+  const updateBlog = async (blogObject, id) => {
     try {
       await blogService
         .update(blogObject.id, blogObject)
         .then(updatedblog => {
+          setBlogs(blogs.map(blog => blog.id !== id ? blog : { ...blog, likes: blogObject.likes }))
           setMessage(`${updatedblog.title} was succesfully updated!`)
-          setBlogs(blogs.map(blog => blog.id !== updatedblog.id ? blog : updatedblog))
         })
     } catch {
       setMessage(`${blogObject.title} couldn't be updated!`)
@@ -87,7 +87,7 @@ const App = () => {
         await blogService
           .remove(blogObject.id)
           .then(deletedBlog => {
-            deletedBlog.foreach(console.log(`delete ${blogObject.id}`))
+            console.log(`delete ${deletedBlog.id}`)
             setBlogs(blogs.filter(blog => blog.id !== blogObject.id))
             setMessage(`${blogObject.title} was succesfully deleted`)
           })
