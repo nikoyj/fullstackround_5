@@ -37,15 +37,15 @@ const Blog = (props) => {
     <div style={blogStyle} className='blog'>
       <span>
         <p>
-          {blogObject.title} ~ {blogObject.author} <button id="view-button" onClick={toggleShowing}> {textforbutton} </button>
+          {blog.title} ~ {blog.author} <button id="view-button" onClick={toggleShowing}> {textforbutton} </button>
         </p>
       </span>
       <div style={showing}>
         <span>
-          <p> {blogObject.url} </p>
+          <p> {blog.url} </p>
           <p> {blogObject.likes} <button id="like-button" onClick={like} type='like'>like</button></p>
-          <p> {blogObject.user.name} </p>
-          {blogObject.user.username === props.user.username ?
+          <p> {blog.user.name} </p>
+          {blog.user.username === props.user.username ?
             <p> <button onClick={remove} type='delete'>delete</button></p>
             :
             <p>  </p>}

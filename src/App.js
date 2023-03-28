@@ -53,19 +53,15 @@ const App = () => {
         .then(returnedBlog => {
           setBlogs(blogs.concat(returnedBlog))
           setMessage(`New blog ${blogObject.title} by ${blogObject.author}`)
-          setTimeout(() => {
-            setMessage(null)
-          }, 5000)
         })
     } catch(exception) {
       setMessage(`New blog ${blogObject.title} cannot be added!`)
       setError(true)
-      setTimeout(() => {
-        setMessage(null)
-        setError(false)
-      }, 5000)
-
     }
+    setTimeout(() => {
+      setMessage(null)
+      setError(false)
+    }, 5000)
   }
   const updateBlog = async (blogObject) => {
     try {
@@ -73,19 +69,16 @@ const App = () => {
         .update(blogObject.id, blogObject)
         .then(updatedblog => {
           setMessage(`${updatedblog.title} was succesfully updated!`)
-          setTimeout(() => {
-            setMessage(null)
-          }, 5000)
           setBlogs(blogs.map(blog => blog.id !== updatedblog.id ? blog : updatedblog))
         })
     } catch {
       setMessage(`${blogObject.title} couldn't be updated!`)
       setError(true)
-      setTimeout(() => {
-        setMessage(null)
-        setError(false)
-      },5000)
     }
+    setTimeout(() => {
+      setMessage(null)
+      setError(false)
+    },5000)
   }
 
   const deleteBlog = async (blogObject) => {
@@ -94,19 +87,19 @@ const App = () => {
         await blogService
           .remove(blogObject.id)
           .then(deletedBlog => {
-            console.log(`delete ${blogObject.id}`)
+            deletedBlog.foreach(console.log(`delete ${blogObject.id}`))
             setBlogs(blogs.filter(blog => blog.id !== blogObject.id))
-            setMessage(`${deletedBlog.title} was succesfully deleted`)
+            setMessage(`${blogObject.title} was succesfully deleted`)
           })
       }
     } catch {
       setMessage(`${blogObject.title} couldn't be deleted`)
       setError(true)
-      setTimeout(() => {
-        setMessage(null)
-        setError(false)
-      },5000)
     }
+    setTimeout(() => {
+      setMessage(null)
+      setError(false)
+    },5000)
   }
   const blogFormRef = useRef()
 
